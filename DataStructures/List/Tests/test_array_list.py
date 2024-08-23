@@ -11,7 +11,6 @@ def compare_from_tests(element1, element2):
         return 1
     return -1
 
-@pytest.mark.skip(reason="No implementado aun")
 def test_new_list():
     lista = setup_tests()
     assert lista["size"] == 0
