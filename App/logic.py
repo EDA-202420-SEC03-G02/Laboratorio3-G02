@@ -49,7 +49,7 @@ def new_logic():
     
     catalog['books'] = lt.new_list()
     catalog['authors'] = lt.new_list() # TODO Implemente la inicialización de la lista de autores
-    catalog['tags'] = lt.newlis()# TODO Implemente la inicialización de la lista de tags
+    catalog['tags'] = lt.new_list()# TODO Implemente la inicialización de la lista de tags
     catalog['book_tags'] =lt.new_list() # TODO Implemente la inicialización de la lista de asociación de libros y tags
     return catalog
 
@@ -90,11 +90,13 @@ def load_tags(catalog):
     # TODO Implementar la carga de los tags
 
 
+
 def load_books_tags(catalog):
     """
     Carga la información que asocia tags con libros.
     """
     # TODO Implementar la carga de los book_tags
+
 
 
 # Funciones de consulta sobre el catálogo
