@@ -65,6 +65,8 @@ def load_data(catalog):
     books, authors = load_books(catalog)
     # TODO Complete la carga de los tags
     # TODO Complete la carga de los book_tags
+    tags=load_tags(catalog)
+    booktags=load_books_tags(catalog)
     return books, authors, tags, booktags
 
 
@@ -113,6 +115,7 @@ def get_best_books(catalog, number):
     Retorna lista con los mejores libros
     """
     # TODO Implementar la función de los mejores libros por rating
+    return 
 
 
 def count_books_by_tag(catalog, tag):
