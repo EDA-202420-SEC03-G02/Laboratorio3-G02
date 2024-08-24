@@ -2,8 +2,7 @@ def new_list():
     lst={
         "elements":[],
         "size":0
-        
-    }
+        }
     return lst
 def add_last(lst, elem):
     lst["elements"].append(elem)  
@@ -39,3 +38,39 @@ def exchange(lst, pos1, pos2):
     if pos1 >= 0 and pos2 >= 0 and pos1 < lst["size"] and pos2 < lst["size"]:
         lst["elements"][pos1], lst["elements"][pos2] = lst["elements"][pos2], lst["elements"][pos1]
         return lst     
+
+def add_first(lst, elem):
+    lst["elements"].insert(0,elem)
+    lst["size"]+=1
+    return lst
+
+def is_empty (lst):
+    return len(lst)==0
+
+def last_element(lst):
+    if not lst: 
+        return None
+    return lst[-1]
+ 
+
+def remove_last(lst):
+    if not lst:
+        return None
+    else:
+        last_element=lst.pop()
+        return last_element
+        
+def delete_element(lst,pos):
+    if 0 <= pos < len(lst):
+        lst.pop(pos) 
+    else:
+        return None
+    
+def sub_list(lst,pos,numelem):
+    if pos < len(lst) and numelem <= len(lst)-pos:
+        copia = lst[pos:pos + numelem] 
+        return copia
+    else:
+        raise Exception("Posición o número de elementos no válidos.")
+    
+    

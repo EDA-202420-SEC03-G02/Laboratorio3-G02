@@ -29,7 +29,6 @@ import os
 
 # TODO Importar la librería para el manejo de listas
 from DataStructures.List import array_list as lt
-
 data_dir = os.path.dirname(os.path.realpath('__file__')) + '/Data/'
 
 """
@@ -49,9 +48,9 @@ def new_logic():
                'book_tags': None}
     
     catalog['books'] = lt.new_list()
-    catalog['authors'] = # TODO Implemente la inicialización de la lista de autores
-    catalog['tags'] = # TODO Implemente la inicialización de la lista de tags
-    catalog['book_tags'] = # TODO Implemente la inicialización de la lista de asociación de libros y tags
+    catalog['authors'] = lt.new_list() # TODO Implemente la inicialización de la lista de autores
+    catalog['tags'] = lt.newlis()# TODO Implemente la inicialización de la lista de tags
+    catalog['book_tags'] =lt.new_list() # TODO Implemente la inicialización de la lista de asociación de libros y tags
     return catalog
 
 
