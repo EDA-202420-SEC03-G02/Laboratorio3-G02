@@ -16,21 +16,21 @@ def add_last(lst, elem):
     return lst
 
 def is_empty (lst):
-    return len(lst)==0
+    return lst["size"] == 0
 
-def get_size(lst):
-    tamaño_lista=lst["size"]
-    return tamaño_lista
+
+def get_size(lst):   
+    return lst["size"]
 
 def get_first_element(lst): 
-    if not lst: 
+    if lst["size"] == 0:
         return None
     return lst["elements"][0]
 
 def last_element(lst):
-    if not lst: 
+    if lst["size"] == 0:
         return None
-    return lst[-1] 
+    return lst["elements"][-1] 
 
 def get_element(lst, pos):
     return lst["elements"][pos]  
@@ -75,10 +75,11 @@ def is_present(lst,elem, cmp_function):
     return -1 
 
 def delete_element(lst,pos):
-    if 0 <= pos < len(lst):
-        lst.pop(pos) 
-    else:
-        return None 
+    if 0 <= pos < lst["size"]:
+        lst["elements"].pop(pos)
+        lst["size"] -= 1
+        return lst
+    return None
     
 def change_info(lst, pos, new_info):
     lst["elements"][pos] = new_info  
@@ -90,11 +91,13 @@ def exchange(lst, pos1, pos2):
         return lst     
   
 def sub_list(lst,pos,numelem):
-    if pos < len(lst) and numelem <= len(lst)-pos:
-        copia = lst[pos:pos + numelem] 
-        return copia
-    else:
-        raise Exception("Posición o número de elementos no válidos.")
+    if 0 <= pos < lst["size"] and 0 <= numelem <= lst["size"] - pos:
+        copia = lst["elements"][pos:pos + numelem]
+        sub_lst = {
+            "elements": copia,
+            "size": len(copia)
+        }
+        return sub_lst
     
     
 
