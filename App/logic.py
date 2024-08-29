@@ -64,9 +64,6 @@ def load_data(catalog):
     estructura de datos
     """
     books, authors = load_books(catalog)
-    # TODO Complete la carga de los tags
-    # TODO Complete la carga de los book_tags
-    
     tags=load_tags(catalog)
     booktags=load_books_tags(catalog)
     return books, authors, tags, booktags
@@ -101,7 +98,7 @@ def load_books_tags(catalog):
     """
     Carga la información que asocia tags con libros.
     """
-    books_tagsfile=data_dir + "GoodReads/books_tags.csv"
+    books_tagsfile=data_dir + "GoodReads/books-small.csv"
     input_file = csv.DictReader(open(books_tagsfile,encoding="utf-8"))
     for books_tags in input_file:
         add_book_tag(catalog, books_tags)
@@ -125,19 +122,39 @@ def get_books_by_author(catalog, author_name):
 
 def get_best_books(catalog, number):
     """
-    Retorna lista con los mejores libros
+    Retorna una lista con los mejores libros, basada en 'average_rating'.
+    
+    Parameters:
+    - catalog: Una lista de diccionarios, donde cada diccionario representa un libro con claves como 'title', 'author', y 'average_rating'.
+    - number: La cantidad de libros que se desea obtener.
+    
+    Returns:
+    - Una lista con los mejores libros ordenados de mayor a menor según su 'average_rating'.
     """
-    books = catalog['books']
-    n = len(books)
     
-    for i in range(n):
-        for j in range(0, n - i - 1):
-            if books[j]['average_rating'] < books[j + 1]['average_rating']:
-                books[j], books[j + 1] = books[j + 1], books[j]
+    best_books = []
     
-    best_books = books[:number]
-    
+   
+    for book in catalog:
+        if isinstance(book, dict) and 'average_rating' in book:
+            
+            inserted = False
+            for i in range(len(best_books)):
+                if book['average_rating'] > best_books[i]['average_rating']:
+                    best_books.insert(i, book)
+                    inserted = True
+                    break
+            if not inserted:
+                best_books.append(book)
+
+     
+        if len(best_books) > number:
+            best_books.pop()
+             
     return best_books
+
+
+
 
 
 def count_books_by_tag(catalog, tag):
@@ -145,7 +162,11 @@ def count_books_by_tag(catalog, tag):
     Retorna los libros que fueron etiquetados con el tag
     """
     # TODO Implementar la función de conteo de libros por tag
-
+    for i in catalog["book_tags"]:
+     if i == tag:
+        librotag += 1
+    return librotag
+ 
 
 # Funciones para agregar informacion al catalogo
 
@@ -186,13 +207,15 @@ def add_tag(catalog, tag):
     return catalog
 
 
-def add_book_tag(catalog, book_tag):
-    """
-    Adiciona un tag a la lista de tags
-    """
-    t = new_book_tag(book_tag['tag_id'], book_tag['goodreads_book_id'])
-    lt.add_last(catalog['book_tags'], t)
-    return catalog
+def add_book_tag(catalog, books_tags):
+    for book_tag in books_tags:
+        # Verifica si la clave 'tags' y 'goodreads_book_id' están presentes en el diccionario
+        if 'tags' in book_tag and 'goodreads_book_id' in book_tag:
+            t = new_book_tag(book_tag['tags'], book_tag['goodreads_book_id'])
+            #
+        else:
+            print(f"{book_tag}")
+
 
 
 # Funciones para creacion de datos
@@ -229,19 +252,19 @@ def new_book_tag(tag_id, book_id):
 
 
 def book_size(catalog):
-    return lt.size(catalog['books'])
+    return len(catalog['books'])
 
 
 def author_size(catalog):
-    return lt.size(catalog["authors"])
+    return len(catalog["authors"])
     # TODO Implementar la función de tamaño de autores
 
 def tag_size(catalog):
-    return lt.size(catalog['tags'])
+    return len(catalog['tags'])
     # TODO Implementar la función de tamaño de tags
 
 def book_tag_size(catalog):
-    return lt.size(catalog['book_tags'])
+    return len(catalog['book_tags'])
     
     # TODO Implementar la función de tamaño de book_tags
 

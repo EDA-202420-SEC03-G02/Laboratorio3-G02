@@ -85,7 +85,8 @@ def print_best_books(books):
     """
     Imprime los mejores libros solicitados
     """
-    size = lt.size(books)
+    size = len(books)
+
     if size:
         print(' Estos son los mejores libros: ')
         for book_pos in range(0, lt.size(books)):
